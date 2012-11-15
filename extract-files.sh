@@ -134,6 +134,7 @@ copy_local_files()
 COMMON_LIBS="
 	libauth.so
 	libcm.so
+	libcnefeatureconfig.so
 	libdiag.so
 	libdivxdrmdecrypt.so
 	libdsi_netctrl.so
