@@ -197,7 +197,6 @@ COMMON_LIBS="
 copy_files "$COMMON_LIBS" "system/lib" ""
 
 COMMON_BINS="
-	ATFWD-daemon
 	bridgemgrd
 	fm_qsoc_patches
 	fmconfig
