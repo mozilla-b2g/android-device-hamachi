@@ -197,7 +197,6 @@ COMMON_LIBS="
 copy_files "$COMMON_LIBS" "system/lib" ""
 
 COMMON_BINS="
-	ATFWD-daemon
 	bridgemgrd
 	fm_qsoc_patches
 	fmconfig
@@ -257,6 +256,13 @@ COMMON_FIRMWARE="
 	yamato_pm4.fw
 	"
 copy_files "$COMMON_FIRMWARE" "system/etc/firmware" "etc/firmware"
+
+# Add blob into out/target/product/XXX/obj/lib for compile time checking by some files.
+# In order to copy the same file into two different destination path by PRODUCT_COPY_FILES,
+# this function duplicate candidate to another name then add it into src of PRODUCT_COPY_FILES.
+# Then change candidate to original name in target of PRODUCT_COPY_FILES.
+cp "$PROPRIETARY_COMMON_DIR/$2/libcnefeatureconfig.so" "$PROPRIETARY_COMMON_DIR/$2/objlibcnefeatureconfig.so"
+echo $BASE_PROPRIETARY_COMMON_DIR/$2/objlibcnefeatureconfig.so:obj/lib/libcnefeatureconfig.so \\ >> $COMMON_BLOBS_LIST
 
 #use the blobs related to Adreno from device since ICS version in hamachi is strawberry not chocolate
 (cat << EOF) | sed s/__DEVICE__/$DEVICE/g | sed s/__MANUFACTURER__/$MANUFACTURER/g > ../../../vendor/$MANUFACTURER/$DEVICE/$DEVICE-vendor-blobs.mk
