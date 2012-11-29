@@ -75,27 +75,6 @@ PRODUCT_COPY_FILES := device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.
 PRODUCT_COPY_FILES += \\
 EOF
 
-# copy_files_to_obj_lib
-# Add blob into out/target/product/XXX/obj/lib for compile time checking by some files.
-# In order to copy the same file into two different destination path by PRODUCT_COPY_FILES,
-# this function duplicate candidate to another name then add it into PRODUCT_COPY_FILES.
-# Then change candidate to original name in target of PRODUCT_COPY_FILES.
-# $1 = src name
-# $2 = additional path under $PROPRIETARY_COMMON_DIR
-copy_files_to_obj_lib()
-{
-    for NAME in $1
-    do
-        if [[ -f $PROPRIETARY_COMMON_DIR/$2/$NAME ]]; then
-            cp $PROPRIETARY_COMMON_DIR/$2/$NAME "$PROPRIETARY_COMMON_DIR/$2/obj$NAME"
-            echo $BASE_PROPRIETARY_COMMON_DIR/$2/obj$NAME:obj/lib/$NAME \\ >> $COMMON_BLOBS_LIST
-        else
-            echo Failed to copy $1 from existing backup blobs to obj/lib. Giving up.
-            exit -1
-        fi
-    done
-}
-
 # copy_file
 # pull file from the device and adds the file to the list of blobs
 #
@@ -278,11 +257,12 @@ COMMON_FIRMWARE="
 	"
 copy_files "$COMMON_FIRMWARE" "system/etc/firmware" "etc/firmware"
 
-COMMON_OBJ_LIBS="
-	libcnefeatureconfig.so
-	"
-
-copy_files_to_obj_lib "$COMMON_OBJ_LIBS" ""
+# Add blob into out/target/product/XXX/obj/lib for compile time checking by some files.
+# In order to copy the same file into two different destination path by PRODUCT_COPY_FILES,
+# this function duplicate candidate to another name then add it into src of PRODUCT_COPY_FILES.
+# Then change candidate to original name in target of PRODUCT_COPY_FILES.
+cp "$PROPRIETARY_COMMON_DIR/$2/libcnefeatureconfig.so" "$PROPRIETARY_COMMON_DIR/$2/objlibcnefeatureconfig.so"
+echo $BASE_PROPRIETARY_COMMON_DIR/$2/objlibcnefeatureconfig.so:obj/lib/libcnefeatureconfig.so \\ >> $COMMON_BLOBS_LIST
 
 #use the blobs related to Adreno from device since ICS version in hamachi is strawberry not chocolate
 (cat << EOF) | sed s/__DEVICE__/$DEVICE/g | sed s/__MANUFACTURER__/$MANUFACTURER/g > ../../../vendor/$MANUFACTURER/$DEVICE/$DEVICE-vendor-blobs.mk
