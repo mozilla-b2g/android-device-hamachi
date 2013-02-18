@@ -132,82 +132,90 @@ copy_local_files()
 }
 
 COMMON_LIBS="
+	libEGL.so
+	libGLESv1_CM.so
+	libGLESv2.so
+	libGLESv2_dbg.so
+	libOmxAacDec.so
+	libOmxH264Dec.so
+	libOmxMp3Dec.so
+	libOmxVidEnc.so
+	libOmxVp8Dec.so
+	libOpenVG.so
 	libauth.so
+	libcamera_client.so
 	libcm.so
 	libcnefeatureconfig.so
+	libcommondefs.so
 	libdiag.so
 	libdivxdrmdecrypt.so
 	libdsi_netctrl.so
 	libdsm.so
 	libdss.so
 	libdsutils.so
-	libEGL.so
+	libgemini.so
+	libgenlock.so
+	libgps.utils.so
 	libgsdi_exp.so
-	libgstk_exp.so
 	libgsl.so
-	libGLESv1_CM.so
-	libGLESv2.so
-	libGLESv2_dbg.so
+	libgstk_exp.so
 	libidl.so
 	libimage-jpeg-enc-omx-comp.so
 	libimage-omx-common.so
-	libmmcamera_interface2.so
-	libmmgsdilib.so
-	libmmstillomx.so
+	libloc_adapter.so
+	libloc_api-rpc-qc.so
+	libloc_eng.so
 	libmm-adspsvc.so
+	libmmcamera_faceproc.so
+	libmmcamera_frameproc.so
+	libmmcamera_hdr_lib.so
+	libmmcamera_image_stab.so
+	libmmcamera_interface2.so
+	libmmcamera_interface2.so
+	libmmcamera_statsproc31.so
+	libmmcamera_wavelet_lib.so
+	libmmgsdilib.so
+	libmmipl.so
+	libmmjpeg.so
+	libmmstillomx.so
 	libnetmgr.so
 	libnv.so
-	libOmxAacDec.so
-	libOmxH264Dec.so
-	libOmxMp3Dec.so
-	libOmxVidEnc.so
-	libOmxVp8Dec.so
+	liboemcamera.so
 	liboncrpc.so
-	libOpenVG.so
 	libpbmlib.so
 	libqcci_legacy.so
+	libqdi.so
 	libqdp.so
 	libqmi.so
 	libqmi_client_qmux.so
 	libqmiservices.so
 	libqueue.so
+	librfm_sar.so
 	libril-qc-1.so
 	libril-qc-qmi-1.so
 	libril-qcril-hook-oem.so
-	libskia.so
+	libril.so
+	librpc.so
 	libsc-a2xx.so
+	libskia.so
 	libwms.so
 	libwmsts.so
-	libcamera_client.so
-	libcommondefs.so
-	libgenlock.so
-	libgemini.so
-	libgps.utils.so
-	libril.so
-	libmmjpeg.so
-	libmmipl.so
-	liboemcamera.so
-	libloc_adapter.so
-	libloc_api-rpc-qc.so
-	libloc_eng.so
-	libqdi.so
-	librpc.so
 	"
 
 copy_files "$COMMON_LIBS" "system/lib" ""
 
 COMMON_BINS="
-	ATFWD-daemon
 	bridgemgrd
 	fm_qsoc_patches
 	fmconfig
 	hci_qcomm_init
+	mm-qcamera-daemon
 	netmgrd
 	port-bridge
 	qmiproxy
 	qmuxd
-	rild
 	radish
+	rild
 	"
 copy_files "$COMMON_BINS" "system/bin" ""
 
@@ -257,6 +265,9 @@ COMMON_FIRMWARE="
 	yamato_pm4.fw
 	"
 copy_files "$COMMON_FIRMWARE" "system/etc/firmware" "etc/firmware"
+
+cp "$PROPRIETARY_COMMON_DIR/$2/libcnefeatureconfig.so" "$PROPRIETARY_COMMON_DIR/$2/objlibcnefeatureconfig.so"
+echo $BASE_PROPRIETARY_COMMON_DIR/$2/objlibcnefeatureconfig.so:obj/lib/libcnefeatureconfig.so \\ >> $COMMON_BLOBS_LIST
 
 #use the blobs related to Adreno from device since ICS version in hamachi is strawberry not chocolate
 (cat << EOF) | sed s/__DEVICE__/$DEVICE/g | sed s/__MANUFACTURER__/$MANUFACTURER/g > ../../../vendor/$MANUFACTURER/$DEVICE/$DEVICE-vendor-blobs.mk
