@@ -132,10 +132,6 @@ copy_local_files()
 }
 
 COMMON_LIBS="
-	libEGL.so
-	libGLESv1_CM.so
-	libGLESv2.so
-	libGLESv2_dbg.so
 	libOmxAacDec.so
 	libOmxH264Dec.so
 	libOmxMp3Dec.so
@@ -197,7 +193,6 @@ COMMON_LIBS="
 	libril.so
 	librpc.so
 	libsc-a2xx.so
-	libskia.so
 	libwms.so
 	libwmsts.so
 	"
