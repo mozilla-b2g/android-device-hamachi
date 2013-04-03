@@ -1,6 +1,7 @@
 $(call inherit-product, device/qcom/common/common.mk)
 PRODUCT_COPY_FILES := \
-  device/qcom/hamachi/msg2133.idc:system/usr/idc/msg2133.idc \
+  device/qcom/hamachi/touch.idc:system/usr/idc/msg2133.idc \
+  device/qcom/hamachi/touch.idc:system/usr/idc/ft5x06_ts.idc \
   device/qcom/hamachi/media_profiles.xml:system/etc/media_profiles.xml \
   device/qcom/msm7627a/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
 
