@@ -1,4 +1,5 @@
 include device/qcom/msm7627a/BoardConfig.mk
+TARGET_USES_MDP3 := true
 
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_KERNEL := true
