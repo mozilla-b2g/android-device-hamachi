@@ -19,7 +19,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
   ro.moz.omx.hw.max_width=640 \
   ro.moz.omx.hw.max_height=480 \
   ro.moz.ril.extra_int_2nd_call=true \
-
+  ro.moz.cam.0.disable_zoom=true
 
 # Discard inherited values and use our own instead.
 PRODUCT_NAME := full_hamachi
